@@ -24,3 +24,10 @@ function getComputerChoice() {
         return "scissors"
 }
 
+function getHumanChoice(){
+    // returns rock, paper, scissors based on user input
+    return prompt(`Enter one of the following:
+        Rock
+        Paper
+        Scissors`)
+}
