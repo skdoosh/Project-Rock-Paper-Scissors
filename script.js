@@ -11,4 +11,16 @@
 // write playround function which takes user choice and computer choice as arguments and then console.logs who won and increments the score counters accordingly
 // wrap everything in the play game function which plays 5 rounds of the game.
 // make sure everything works at each step
-    
+
+
+function getComputerChoice() {
+    // returns rock, paper or scissors based on randomly generated numbers
+    let randomNumber = Math.floor((Math.random()*3)+1);
+    if (randomNumber == 1)
+        return "rock";
+    else if (randomNumber == 2)
+        return "paper";
+    else if (randomNumber == 3)
+        return "scissors"
+}
+
