@@ -12,6 +12,9 @@
 // wrap everything in the play game function which plays 5 rounds of the game.
 // make sure everything works at each step
 
+    // Initialize Scores
+    let humanScore = 0;
+    let computerScore = 0;
 
 function getComputerChoice() {
     // returns rock, paper or scissors based on randomly generated numbers
@@ -29,5 +32,117 @@ function getHumanChoice(){
     return prompt(`Enter one of the following:
         Rock
         Paper
-        Scissors`)
+        Scissors`);
 }
+
+function playRound() {
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+
+    humanChoice = humanChoice.toLowerCase();
+    console.log("You have chosen: " + humanChoice + ".");
+    console.log("The computer has chosen: " + computerChoice + ".");
+    switch (humanChoice) {
+        case 'rock':
+            switch(computerChoice){
+                case 'rock':
+                    tie();
+                    break;
+                case 'paper':
+                    computerWins()
+                    break;
+                case 'scissors':
+                    humanWins();
+                    break;
+                
+                }
+            break;
+        case 'paper':
+            switch(computerChoice){
+                case 'rock':
+                    humanWins();
+                    break;
+                case 'paper':
+                    tie(); 
+                    break;
+                case 'scissors':
+                    computerWins();
+                    break;
+            }
+            break;
+        case 'scissors':
+            switch(computerChoice){
+                case 'rock':
+                    computerWins()
+                    break;
+                case 'paper':
+                    humanWins();
+                    break;
+                case 'scissors':
+                    tie();
+                    break; 
+            }
+            break;
+        default:
+            console.log("You didn't enter one of the options! Try again!");
+            playRound();
+            break;
+        }
+    return;
+}
+
+function humanWins() {
+    console.log("You win!");
+    humanScore+=1;
+    displayScore();
+    return;
+}
+
+function computerWins() {
+    console.log("Computer wins!");
+    computerScore+=1;
+    displayScore();
+    return;
+}
+
+function tie() {
+    console.log("It's a tie!")
+    displayScore();
+    return;
+}
+
+function displayScore() {
+    console.log(`Scoreboard
+        Your Score: ${humanScore}
+        Computer Score: ${computerScore}`)
+}
+
+function evalScore() {
+    console.log("\n");
+    if (humanScore > computerScore){
+        console.log("You Win the Game!");
+    }
+    else if (computerScore > humanScore){
+        console.log("Computer Wins the Game!");
+    } else {
+        console.log("It's a tie.")
+    }
+}
+
+function playGame() {
+
+    humanScore = 0;
+    computerScore = 0;
+
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+
+    evalScore();
+}
+
+
+
+playGame();
