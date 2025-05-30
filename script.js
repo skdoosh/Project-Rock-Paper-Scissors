@@ -11,11 +11,12 @@
 // write playround function which takes user choice and computer choice as arguments and then console.logs who won and increments the score counters accordingly
 // wrap everything in the play game function which plays 5 rounds of the game.
 // make sure everything works at each step
-
-function playRound() {
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
-
+let humanScore = 0;
+let computerScore = 0;
+function playRound(humanChoice) {
+    // let humanChoice = getHumanChoice();
+    // let computerChoice = getComputerChoice();
+    let computerChoice = getComputerChoice()
     humanChoice = humanChoice.toLowerCase();
     console.log("You have chosen: " + humanChoice + ".");
     console.log("The computer has chosen: " + computerChoice + ".");
@@ -64,42 +65,58 @@ function playRound() {
         playRound();
         break;
     }
+    
+    function getComputerChoice() {
+      // returns rock, paper or scissors based on randomly generated numbers
+      let randomNumber = Math.floor(Math.random() * 3 + 1);
+      if (randomNumber == 1) return "rock";
+      else if (randomNumber == 2) return "paper";
+      else if (randomNumber == 3) return "scissors";
+    }
+    
+    function humanWins() {
+      console.log("You win!");
+      humanScore += 1;
+      displayScore();
+      return;
+    }
+    
+    function computerWins() {
+      console.log("Computer wins!");
+      computerScore += 1;
+      displayScore();
+      return;
+    }
+    
+    function tie() {
+      console.log("It's a tie!");
+      displayScore();
+      return;
+    }
+    
+    function evalScore() {
+      console.log("\n");
+      if (humanScore > computerScore) {
+        console.log("You Win the Game!");
+      } else if (computerScore > humanScore) {
+        console.log("Computer Wins the Game!");
+      } else if (computerScore === humanScore){
+        console.log("It's a tie.");
+      }
+    }
     return;
-  }
-function getComputerChoice() {
-  // returns rock, paper or scissors based on randomly generated numbers
-  let randomNumber = Math.floor(Math.random() * 3 + 1);
-  if (randomNumber == 1) return "rock";
-  else if (randomNumber == 2) return "paper";
-  else if (randomNumber == 3) return "scissors";
 }
 
-function humanWins() {
-  console.log("You win!");
-  humanScore += 1;
-  displayScore();
-  return;
-}
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
 
-function computerWins() {
-  console.log("Computer wins!");
-  computerScore += 1;
-  displayScore();
-  return;
-}
-function tie() {
-  console.log("It's a tie!");
-  displayScore();
-  return;
-}
-
-function evalScore() {
-  console.log("\n");
-  if (humanScore > computerScore) {
-    console.log("You Win the Game!");
-  } else if (computerScore > humanScore) {
-    console.log("Computer Wins the Game!");
-  } else if (computerScore === humanScore){
-    console.log("It's a tie.");
-  }
-}
+rock.addEventListener('click',(e) => {
+  playRound('rock');
+});
+paper.addEventListener('click',(e) => {
+  playRound('paper');
+});
+scissors.addEventListener('click',(e) => {
+  playRound('scissors');
+});
