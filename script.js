@@ -13,6 +13,16 @@
 // make sure everything works at each step
 let humanScore = 0;
 let computerScore = 0;
+const choiceDisplay = document.querySelector('#choice');
+function displayChoice(humanChoice, computerChoice){
+  choiceDisplay.replaceChildren();
+  const s1 = document.createElement('span');
+  const s2 = document.createElement('span');
+  s1.textContent = "You have chosen: " + humanChoice + ".";
+  s2.textContent = "The computer has chosen: " + computerChoice + ".";
+  choiceDisplay.appendChild(s1);
+  choiceDisplay.appendChild(s2);
+}
 function playRound(humanChoice) {
     // let humanChoice = getHumanChoice();
     // let computerChoice = getComputerChoice();
@@ -20,6 +30,7 @@ function playRound(humanChoice) {
     humanChoice = humanChoice.toLowerCase();
     console.log("You have chosen: " + humanChoice + ".");
     console.log("The computer has chosen: " + computerChoice + ".");
+    displayChoice(humanChoice, computerChoice);
     switch (humanChoice) {
       case "rock":
         switch (computerChoice) {
@@ -65,6 +76,23 @@ function playRound(humanChoice) {
         playRound();
         break;
     }
+    evalScore();
+    function displayScore() {
+      console.log(`Scoreboard
+      Your Score: ${humanScore}
+      Computer Score: ${computerScore}`);
+      const score = document.querySelector('#score');
+      score.replaceChildren();
+      const heading = document.createElement('h3');
+      heading.textContent = 'Scoreboard'
+      score.appendChild(heading);
+      const hscore = document.createElement('span');
+      const cscore = document.createElement('span');
+      hscore.textContent =`Your Score: ${humanScore}`;
+      cscore.textContent =`Computer's Score: ${computerScore}`;
+      score.appendChild(hscore);
+      score.appendChild(cscore);
+    }
     
     function getComputerChoice() {
       // returns rock, paper or scissors based on randomly generated numbers
@@ -96,12 +124,32 @@ function playRound(humanChoice) {
     
     function evalScore() {
       console.log("\n");
-      if (humanScore > computerScore) {
+      if (humanScore === 5) {
         console.log("You Win the Game!");
-      } else if (computerScore > humanScore) {
+        const theStuff = document.querySelector('body');
+        theStuff.replaceChildren();
+        const win = document.createElement('h1');
+        win.textContent = "YOU WIN!";
+        theStuff.appendChild(win);
+        const playAgain = document.createElement('button');
+        playAgain.textContent = 'Play Again?';
+        playAgain.addEventListener('click',(e)=>{
+          location.reload();
+        });
+        theStuff.appendChild(playAgain);
+      } else if (computerScore === 5) {
         console.log("Computer Wins the Game!");
-      } else if (computerScore === humanScore){
-        console.log("It's a tie.");
+        const stuff = document.querySelector('body');
+        stuff.replaceChildren();
+        const lose = document.createElement('h1');
+        lose.textContent = "YOU LOSE!";
+        stuff.appendChild(lose);
+        const playAgain = document.createElement('button');
+        playAgain.textContent = 'Play Again?';
+        playAgain.addEventListener('click',(e)=>{
+          location.reload();
+        });
+        stuff.appendChild(playAgain);
       }
     }
     return;
